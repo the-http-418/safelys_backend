@@ -67,6 +67,16 @@ def get_store_data():
     return retdata
 
 
+@app.route('/get_offer_data')
+def get_offer_data():
+    Offer_Info = pymongo.collection.Collection(db, 'Offer_Info')
+    stores = json.loads(dumps(Offer_Info.find()))
+    retdata = dict()
+    retdata['count'] = len(stores)
+    retdata['data'] = stores
+    return retdata
+
+
 @app.route('/populate_store_info')
 def populate_store_info():
     Input_Data = request.json
