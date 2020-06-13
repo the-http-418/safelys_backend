@@ -67,4 +67,9 @@ def get_store_data():
     return retdata
 
 
-
+@app.route('/add_new_offer',methods=['POST'])
+def add_new_offer():
+    inputData = request.json
+    Offer_Info = pymongo.collection.Collection(db, 'Offer_Info')
+    Offer_Info.insert_one(inputData)
+    return Response(status=200)
