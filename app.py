@@ -39,7 +39,7 @@ def update_count():
         inputData = request.json
         shop_details=db.shop_details
         newdata["count"] = inputData["count"]
-        shop_details.update_one({"count":"*"},{"$set":newdata})
+        shop_details.update_one({"storename":"mayura"},{"$set":newdata})
         return ({"status":"200"})
     except:
         return ({"status":"403"})
