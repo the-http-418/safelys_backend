@@ -32,3 +32,14 @@ def test():
 def userlist():
     users = db.user
     return users.count_documents({})
+
+@app.route('/update_count',methods=['POST'])
+def update_count():
+    try:
+        inputData = request.json
+        shop_details=db.shop_details
+        newdata["count"] = inputData["count"]
+        shop_details.update_one({"count":"*"},newdata)
+        return ({"status":"200"})
+    except:
+        return ({"status":"403"})
