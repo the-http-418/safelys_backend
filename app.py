@@ -66,5 +66,11 @@ def get_store_data():
     retdata['data'] = stores
     return retdata
 
-
+@app.route('/populate_store_info')
+def populate_store_info():
+    Input_Data = request.json
+    Store_Info = pymono.collections.Collections(db, 'Store_Info')
+    stores = json.loads(dumps(Store_info.find()))
+    Store_Info.update_one({'store_name':inputData['store_name']}, {'$set': inputData})
+    return Response(status=200)
 
