@@ -80,7 +80,7 @@ def get_offer_data():
 def get_order_data():
     inputData = request.json
     Order_Info = pymongo.collection.Collection(db, 'Order_Info')
-    stores = json.loads(dumps(Offer_Info.find(inputData)))
+    stores = json.loads(dumps(Order_Info.find(inputData)))
     retdata = dict()
     retdata['count'] = len(stores)
     retdata['data'] = stores
