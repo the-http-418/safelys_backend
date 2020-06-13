@@ -1,4 +1,4 @@
-import flask
+from flask import request, Response
 from flask_cors import CORS
 import pymongo
 from bson.json_util import dumps
@@ -56,6 +56,13 @@ def update_count():
     else:
         Store_Info.update_one({'store_name':inputData['store_name']}, {'$set': inputData})
         return Response(status=200)
+
+@app.route('/get_data')
+def get_data():
+    Store_Info = pymongo.collection.Collection(db, 'Store_Info')
+    stores = json.loads(dumps(Store_Info.find()))
+    print(str(stores))
+    return "lol"
 
 
 '''
