@@ -37,7 +37,7 @@ def userlist():
 def update_count():
     try:
         inputData = request.json
-        shop_details=db.shop_details
+        shop_details=db.shop_details.copy()
         newdata["count"] = inputData["count"]
         shop_details.update_one({"store_id":"mayura"},{"$set":newdata})
         return ({"status":"200"})
