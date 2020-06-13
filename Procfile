@@ -1,1 +1,1 @@
-web: gunicorn app: http418-safely-app
+web: gunicorn app:app
