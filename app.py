@@ -35,27 +35,27 @@ def userlist():
 
 @app.route('/new_store',methods=['POST'])
 def new_store():
-	inputData = request.json
-	Store_Info = pymongo.collection.Collection(db, 'Store_Info')
-	stores = json.loads(dumps(Store_Info.find({'store_name':inputData['store_name']})))
-	if(len(stores) == 0):
+    inputData = request.json
+    Store_Info = pymongo.collection.Collection(db, 'Store_Info')
+    stores = json.loads(dumps(Store_Info.find({'store_name':inputData['store_name']})))
+    if(len(stores) == 0):
         Store_Info.insert_one(inputData)
-		return Response(status=200)
-	else:
-		Store_Info.update_one({'store_name':inputData['store_name']}, {'$set': inputData})
-	return Response(status=200)
+        return Response(status=200)
+    else:
+        Store_Info.update_one({'store_name':inputData['store_name']}, {'$set': inputData})
+        return Response(status=200)
 
 
 @app.route('/update_count',methods=['POST'])
 def update_count():
-	inputData = request.json
-	Store_Info = pymongo.collection.Collection(db, 'Store_Info')
-	stores = json.loads(dumps(Store_Info.find({'store_name':inputData['store_name']})))
-	if(len(stores) == 0):
-		return Response(status=404)
-	else:
-		Store_Info.update_one({'store_name':inputData['store_name']}, {'$set': inputData})
-	return Response(status=200)
+    inputData = request.json
+    Store_Info = pymongo.collection.Collection(db, 'Store_Info')
+    stores = json.loads(dumps(Store_Info.find({'store_name':inputData['store_name']})))
+    if(len(stores) == 0):
+        return Response(status=404)
+    else:
+        Store_Info.update_one({'store_name':inputData['store_name']}, {'$set': inputData})
+        return Response(status=200)
 
 
 '''
