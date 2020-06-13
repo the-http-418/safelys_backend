@@ -57,12 +57,14 @@ def update_count():
         Store_Info.update_one({'store_name':inputData['store_name']}, {'$set': inputData})
         return Response(status=200)
 
-@app.route('/get_data')
-def get_data():
+@app.route('/get_store_data')
+def get_store_data():
     Store_Info = pymongo.collection.Collection(db, 'Store_Info')
     stores = json.loads(dumps(Store_Info.find()))
-    print(str(stores))
-    return "lol"
+    retdata = dict()
+    retdata['count'] = len(stores)
+    retdata['data'] = stores
+    return retdata
 
 
 '''
