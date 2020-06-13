@@ -13,14 +13,13 @@ app.config["DEBUG"] = True
 
 # Loads the Database and Collections
 
-client = pymongo.MongoClient(
-    "mongodb+srv://admin:admin@cluster0-gjuwr.gcp.mongodb.net/safedb?retryWrites=true&w=majority")
-db = client.safedb
+client = pymongo.MongoClient("mongodb+srv://admin:admin@cluster0-gjuwr.gcp.mongodb.net/safedb?retryWrites=true&w=majority")
+db = pymongo.database.Database(client, 'safelys_1')
 
 
 @app.route('/')
 def home():
-    return "sup"
+    return "Welcome to Safelys!"
 
 
 @app.route('/test')
@@ -33,6 +32,33 @@ def userlist():
     users = db.user
     return users.count_documents({})
 
+
+@app.route('/new_store',methods=['POST'])
+def new_store():
+	inputData = request.json
+	Store_Info = pymongo.collection.Collection(db, 'Store_Info')
+	stores = json.loads(dumps(Store_Info.find({'store_name':inputData['store_name']})))
+	if(len(stores) == 0):
+        Store_Info.insert_one(inputData)
+		return Response(status=200)
+	else:
+		Store_Info.update_one({'store_name':inputData['store_name']}, {'$set': inputData})
+	return Response(status=200)
+
+
+@app.route('/update_count',methods=['POST'])
+def update_count():
+	inputData = request.json
+	Store_Info = pymongo.collection.Collection(db, 'Store_Info')
+	stores = json.loads(dumps(Store_Info.find({'store_name':inputData['store_name']})))
+	if(len(stores) == 0):
+		return Response(status=404)
+	else:
+		Store_Info.update_one({'store_name':inputData['store_name']}, {'$set': inputData})
+	return Response(status=200)
+
+
+'''
 @app.route('/update_count',methods=['POST'])
 def update_count():
     try:
@@ -43,3 +69,4 @@ def update_count():
         return ({"status":"200"})
     except:
         return ({"status":"403"})
+'''
