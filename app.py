@@ -32,6 +32,3 @@ def test():
 def userlist():
     users = db.user
     return users.count_documents({})
-
-
-app.run()
