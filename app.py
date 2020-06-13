@@ -1,10 +1,10 @@
-from flask import request, Response
+from flask import request, Response, Flask
 from flask_cors import CORS
 import pymongo
 from bson.json_util import dumps
 import json
 
-app = flask.Flask(__name__)
+app = Flask(__name__)
 # fixing cors
 CORS(app)
 app.config['SEND_FILE_MAX_AGE_DEFAULT'] = 0
