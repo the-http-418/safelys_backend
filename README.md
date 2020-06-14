@@ -1,3 +1,4 @@
+[![Build Status](https://travis-ci.com/the-http-418/safelys_backend.svg?branch=master)](https://travis-ci.com/the-http-418/safelys_backend)
 # **Safelys** - Backend
 Safelys helps you maintin social distance when in public places such as stores and restaurants.
 
