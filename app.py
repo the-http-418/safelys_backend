@@ -87,18 +87,10 @@ def get_order_data():
     return retdata
 
 
-@app.route('/populate_store_info')
-def populate_store_info():
-    Input_Data = request.json
-    Store_Info = pymono.collections.Collections(db, 'Store_Info')
-    stores = json.loads(dumps(Store_info.find()))
-    Store_Info.update_one({'store_name':inputData['store_name']}, {'$set': inputData})
-    return Response(status=200)
-
-
 @app.route('/add_new_offer',methods=['POST'])
 def add_new_offer():
     inputData = request.json
     Offer_Info = pymongo.collection.Collection(db, 'Offer_Info')
     Offer_Info.insert_one(inputData)
     return Response(status=200)
+
